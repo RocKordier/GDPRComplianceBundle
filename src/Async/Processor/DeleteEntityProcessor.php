@@ -23,7 +23,6 @@ class DeleteEntityProcessor implements MessageProcessorInterface, TopicSubscribe
     public function __construct(DeleteEntity $deleteEntity)
     {
         $this->deleteEntity = $deleteEntity;
-
         $this->logger = new NullLogger();
     }
 

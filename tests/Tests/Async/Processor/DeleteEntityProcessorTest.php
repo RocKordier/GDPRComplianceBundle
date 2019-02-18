@@ -7,7 +7,6 @@ use Doctrine\DBAL\Statement;
 use EHDev\GDPRComplianceBundle\Async\Processor\DeleteEntityProcessor;
 use EHDev\GDPRComplianceBundle\Async\Topics;
 use EHDev\GDPRComplianceBundle\GDPR\DeleteEntity;
-use Oro\Bundle\SegmentBundle\Entity\Segment;
 use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Transport\MessageInterface;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
@@ -29,9 +28,9 @@ class DeleteEntityProcessorTest extends TestCase
 
     public function testProcessInvalideJson()
     {
-        $processor = new DeleteEntityProcessor($this->deleteEntity->reveal());
-
         $this->message->getBody()->willReturn('{"invalide"');
+
+        $processor = new DeleteEntityProcessor($this->deleteEntity->reveal());
         $return = $processor->process($this->message->reveal(), $this->session->reveal());
 
         $this->assertEquals(MessageProcessorInterface::REJECT, $return);
@@ -43,9 +42,10 @@ class DeleteEntityProcessorTest extends TestCase
     public function testIncompleteJson($data)
     {
         $this->message->getBody()->willReturn($data);
-        $processor = new DeleteEntityProcessor($this->deleteEntity->reveal());
 
+        $processor = new DeleteEntityProcessor($this->deleteEntity->reveal());
         $return = $processor->process($this->message->reveal(), $this->session->reveal());
+
         $this->assertEquals(MessageProcessorInterface::REJECT, $return);
     }
 
@@ -63,9 +63,10 @@ class DeleteEntityProcessorTest extends TestCase
     {
         $this->message->getBody()->willReturn('{"id":3, "class": "class"}');
         $this->deleteEntity->delete()->shouldBeCalledOnce()->willReturn($willReturn)->withArguments([3, 'class']);
-        $processor = new DeleteEntityProcessor($this->deleteEntity->reveal());
 
+        $processor = new DeleteEntityProcessor($this->deleteEntity->reveal());
         $return = $processor->process($this->message->reveal(), $this->session->reveal());
+
         $this->assertEquals($expected, $return);
     }
 
@@ -81,10 +82,8 @@ class DeleteEntityProcessorTest extends TestCase
         $topics = $processor->getSubscribedTopics();
 
         $this->assertEquals(1, count($topics));
-
-        $topic = array_pop($topics);
         $this->assertTrue(
-            Topics::DELETE_ENTITY_PROCESSOR === $topic
+            Topics::DELETE_ENTITY_PROCESSOR === array_pop($topics)
         );
     }
 }

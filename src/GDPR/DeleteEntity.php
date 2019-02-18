@@ -10,14 +10,13 @@ use Psr\Log\NullLogger;
 
 class DeleteEntity implements LoggerAwareInterface
 {
-    private $manager;
-
     use LoggerAwareTrait;
+
+    private $manager;
 
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
-
         $this->logger = new NullLogger();
     }
 

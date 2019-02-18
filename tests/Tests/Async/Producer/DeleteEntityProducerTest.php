@@ -44,10 +44,9 @@ class DeleteEntityProcessorTest extends TestCase
         $classMeta->getIdentifierValues(Argument::any())->willReturn([1]);
 
         $this->manager->getClassMetadata(Argument::any())->willReturn($classMeta->reveal());
-
         $this->messageProducer->send(Argument::any(), Argument::any())->shouldBeCalledOnce();
+        
         $producer = new DeleteEntityProducer($this->messageProducer->reveal(), $this->manager->reveal());
-
         $producer->deleteObject(new \stdClass());
     }
 
