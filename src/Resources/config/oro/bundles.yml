@@ -1,2 +1,2 @@
 bundles:
-    - { name: EHDEv\GDPRComplianceBundle\EHDevGDPRComplianceBundle, priority: 100 }
+    - { name: EHDev\GDPRComplianceBundle\EHDevGDPRComplianceBundle, priority: 100 }
