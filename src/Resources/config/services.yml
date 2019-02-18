@@ -1,0 +1,22 @@
+services:
+    EHDev\GDPRComplianceBundle\Async\Processor\DeleteEntityProcessor:
+        class: EHDev\GDPRComplianceBundle\Async\Processor\DeleteEntityProcessor
+        arguments:
+            - '@EHDev\GDPRComplianceBundle\GDPR\DeleteEntity'
+        tags:
+            - { name: 'oro_message_queue.client.message_processor' }
+        calls:
+            - { method: setLogger, arguments: ['@logger'] }
+
+    EHDev\GDPRComplianceBundle\Async\Producer\DeleteEntityProducer:
+        class: EHDev\GDPRComplianceBundle\Async\Producer\DeleteEntityProducer
+        arguments:
+            - '@oro_message_queue.client.message_producer'
+            - '@doctrine.orm.entity_manager'
+
+    EHDev\GDPRComplianceBundle\GDPR\DeleteEntity:
+        class: EHDev\GDPRComplianceBundle\GDPR\DeleteEntity
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        calls:
+            - { method: setLogger, arguments: ['@logger'] }
