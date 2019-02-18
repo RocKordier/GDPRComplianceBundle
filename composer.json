@@ -1,0 +1,46 @@
+{
+    "name": "ehdev/gdpr-compliance-bundle",
+    "description": "Bundle to make Oro more GDPR compliant",
+    "homepage": "https://github.com/RocKordier/GDPRComplianceBundle",
+    "keywords": ["Oro Platform", "Symfony2", "Symfony 3", "GDPR"],
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "[RocKordier] Eric Hertwig",
+            "homepage": "http://eric-hertwig.de"
+        }
+    ],
+    "repositories": {
+        "oro": {
+            "type": "composer",
+            "url": "https://packagist.orocrm.com"
+        },
+        "asset-packagist": {
+            "type": "composer",
+            "url": "https://asset-packagist.orocrm.com"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "EHDev\\GDPRComplianceBundle\\": ["src/", "tests/"]
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "oro/platform": "^2.6 | ^3.1",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "ehdev/ciutility": "^0.0.1"
+    },
+    "config" : {
+        "fxp-asset" : {
+            "enabled" : false
+        },
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
