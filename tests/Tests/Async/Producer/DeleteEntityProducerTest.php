@@ -3,21 +3,12 @@ declare(strict_types=1);
 
 namespace EHDev\GDPRComplianceBundle\Tests\Async\Producer;
 
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\DBAL\Statement;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use EHDev\GDPRComplianceBundle\Async\Processor\DeleteEntityProcessor;
 use EHDev\GDPRComplianceBundle\Async\Producer\DeleteEntityProducer;
-use EHDev\GDPRComplianceBundle\Async\Topics;
-use EHDev\GDPRComplianceBundle\GDPR\DeleteEntity;
-use Oro\Bundle\SegmentBundle\Entity\Segment;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;
-use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
-use Oro\Component\MessageQueue\Transport\MessageInterface;
-use Oro\Component\MessageQueue\Transport\SessionInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
 
 class DeleteEntityProcessorTest extends TestCase
 {
@@ -45,7 +36,7 @@ class DeleteEntityProcessorTest extends TestCase
 
         $this->manager->getClassMetadata(Argument::any())->willReturn($classMeta->reveal());
         $this->messageProducer->send(Argument::any(), Argument::any())->shouldBeCalledOnce();
-        
+
         $producer = new DeleteEntityProducer($this->messageProducer->reveal(), $this->manager->reveal());
         $producer->deleteObject(new \stdClass());
     }

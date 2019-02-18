@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace EHDev\GDPRComplianceBundle\Tests\Async\Processor;
 
-use Doctrine\DBAL\Statement;
 use EHDev\GDPRComplianceBundle\Async\Processor\DeleteEntityProcessor;
 use EHDev\GDPRComplianceBundle\Async\Topics;
 use EHDev\GDPRComplianceBundle\GDPR\DeleteEntity;
@@ -11,7 +10,6 @@ use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Transport\MessageInterface;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Prophecy\ObjectProphecy;
 
 class DeleteEntityProcessorTest extends TestCase
 {
